@@ -1,8 +1,21 @@
 const main = document.querySelector(".main")
 const mainBtn = main.querySelector("button");
 const qna = document.querySelector(".qna");
-const qnaP = qna.querySelector("p");
+const result = document.querySelector(".result");
+const endPoint = 12;//ㅊㅗㅇ ㅈㅣㄹ무ㄴ 개수
 
+function goResult() {
+  qna.style.WebkitAnimation = "fadeOut 1s";
+  qna.style.animation = "fadeOut 1s";
+  setTimeout(() => {
+    result.style.WebkitAnimation = "fadeIn 1s";
+    result.style.animation = "fadeIn 1s";
+    setTimeout(() => {
+      result.style.display = "block";
+      qna.style.display = "none";
+    }, 450);
+  }, 450);
+}
 
 function addAnswer(answerText, qInx) {
   var a = document.querySelector(".answerBox");
@@ -33,11 +46,16 @@ function addAnswer(answerText, qInx) {
 }
 
 function goNext(qInx) {
+  if(++qInx === endPoint) {
+    goResult();
+  }
   var q = document.querySelector(".questionBox");
   q.innerHTML = qnaList[qInx].q;
   for(let i in qnaList[qInx].a) {
     addAnswer(qnaList[qInx].a[i].answer, qInx);
   }
+  var status = document.querySelector(".statusBar");
+  status.style.width = (100/endPoint) * (qInx+1) + '%';
 }
 
 function showQna() {

@@ -27,3 +27,22 @@
   background-color: coral;
   color: whitesmoke;
 }
+
+.status {
+  height: 10px;
+  width: 100%;
+  background-color: white;
+  border-radius: 20px;
+}
+
+.statusBar {
+  height: 100%;
+  /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#f85032+0,ed7474+0,e51502+100 */
+background: #f85032; /* Old browsers */
+background: -moz-linear-gradient(top,  #f85032 0%, #ed7474 0%, #e51502 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top,  #f85032 0%,#ed7474 0%,#e51502 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom,  #f85032 0%,#ed7474 0%,#e51502 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f85032', endColorstr='#e51502',GradientType=0 ); /* IE6-9 */
+
+  border-radius: 20px;
+}
