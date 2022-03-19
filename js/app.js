@@ -46,8 +46,9 @@ function addAnswer(answerText, qInx) {
 }
 
 function goNext(qInx) {
-  if(++qInx === endPoint) {
+  if(qInx + 1 === endPoint) {
     goResult();
+    return;
   }
   var q = document.querySelector(".questionBox");
   q.innerHTML = qnaList[qInx].q;
