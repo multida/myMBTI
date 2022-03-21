@@ -3,6 +3,29 @@ const mainBtn = main.querySelector("button");
 const qna = document.querySelector(".qna");
 const result = document.querySelector(".result");
 const endPoint = 12;//ㅊㅗㅇ ㅈㅣㄹ무ㄴ 개수
+const select = [0,0,0,0,0,0,0,0,0,0,0,0];
+
+function calResult() {
+  var result = select.indexOf(Math.max(...select));
+  return result;
+}
+
+function setResult() {
+  let point = calResult();
+  const resultName = document.querySelector(".resultName");
+  resultName.innerHTML = infoList[point].name;
+
+  var resultImg = document.createElement('img');
+  const imgDiv = document.querySelector("#resultImg");
+  var imgUrl = 'img/image-' + point + '.png';
+  resultImg.src = imgUrl;
+  resultImg.alt = point;//공유하기 할때씀
+  resultImg.classList.add("img-fluid");
+  imgDiv.appendChild(resultImg);
+
+  const resultDesc = document.querySelector(".resultDesc");
+  resultDesc.innerHTML = infoList[point].desc;
+}
 
 function goResult() {
   qna.style.WebkitAnimation = "fadeOut 1s";
@@ -13,11 +36,12 @@ function goResult() {
     setTimeout(() => {
       result.style.display = "block";
       qna.style.display = "none";
-    }, 450);
-  }, 450);
+    }, 450)});
+    setResult();
+    calResult();
 }
 
-function addAnswer(answerText, qInx) {
+function addAnswer(answerText, qInx, idx) {
   var a = document.querySelector(".answerBox");
   var answer = document.createElement("button");
   answer.classList.add("answerList");
@@ -36,6 +60,11 @@ function addAnswer(answerText, qInx) {
     children[i].style.display = "none";
   }
   setTimeout(() => {
+    var target = qnaList[qInx].a[idx].type;
+    for(let i = 0; i < target.length; i++) {
+      select[target[i]] += 1;
+    }
+    
     for(let i = 0; i < children.length; i++) {
       children[i].style.display = "none";
     }
@@ -46,14 +75,14 @@ function addAnswer(answerText, qInx) {
 }
 
 function goNext(qInx) {
-  if(qInx + 1 === endPoint) {
+  if(qInx === endPoint) {
     goResult();
     return;
   }
   var q = document.querySelector(".questionBox");
   q.innerHTML = qnaList[qInx].q;
   for(let i in qnaList[qInx].a) {
-    addAnswer(qnaList[qInx].a[i].answer, qInx);
+    addAnswer(qnaList[qInx].a[i].answer, qInx ,i);
   }
   var status = document.querySelector(".statusBar");
   status.style.width = (100/endPoint) * (qInx+1) + '%';
